@@ -1,0 +1,7 @@
+.hero__bg {
+    max-width: 1920px;
+    width: 100%;
+    background-image: url('../../assets/images/hero-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
