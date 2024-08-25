@@ -1,24 +1,21 @@
 import React, { memo, useEffect } from 'react'
 import { useGetProductsQuery } from '../../context/api/productApi'
-import { Link } from 'react-router-dom'
 import { Skeleton, Slider } from 'antd'
-import { EyeOutlined } from '@ant-design/icons'
-import ShopIcon from '../../assets/icons/ShopIcon'
-import LikeIcon from '../../assets/icons/LikeIcon'
-import { Liner, ratingTotal } from '../../static/CustemsFuction'
+import { ColorsItem, Liner } from '../../static/CustemsFuction'
 import FiltersIcon from '../../assets/icons/FiltersIcon'
 import { useGetCategoriesQuery } from '../../context/api/categoryApi'
+import ProductsItem from '../../components/product-wrapper/ProductsItem'
 
 const Products = () => {
     const [categoryId, setCategoryId] = React.useState('')
-    const { data, isFetching } = useGetProductsQuery({ limit: 100, categoryId })
+    const { data, isFetching } = useGetProductsQuery({ limit: 6, categoryId })
     const { data: category, isFetching: categoryFetching } = useGetCategoriesQuery()
 
     useEffect(() => { window.scrollTo(0, 0) }, [categoryId])
 
     return (
-        <section className='max-w-[1240px] w-full my-10 mx-auto flex items-start justify-start gap-[21px]'>
-            <div className="max-w-[295px] min-h-[160px] w-full py-5 px-6 flex flex-wrap items-start justify-start border-2 rounded-[20px]">
+        <section className='max-w-[1240px] w-full px-2 my-10 mx-auto grid md:grid-cols-4 items-start justify-start gap-[15px]'>
+            <div className="max-w-[275px] hidden min-h-[160px] w-full py-4 px-3 md:flex flex-wrap col-span-1 items-start justify-start rounded-[10px]">
                 <button className='w-full text-[20px] font-bold flex items-center justify-between gap-2'>
                     <span>Filters</span> <FiltersIcon />
                 </button>
@@ -34,29 +31,39 @@ const Products = () => {
                     }
                 </ul>
                 <Liner key={'liner_2'} />
-                <div className="w-full grid">
+                <div className="w-full grid pe-2">
                     <h5 className='text-lg text-black font-semibold'>Price</h5>
-                    <Slider className='w-full text-black' controlSize={20} range={{ draggableTrack: true, }} defaultValue={[0, 10000]} />
+                    <Slider className='w-full text-black' controlSize={18} range={{ draggableTrack: true, }} defaultValue={[0, 10000]} />
                 </div>
                 <Liner key={'liner_3'} />
                 <div className="w-full grid">
                     <h5 className='text-lg text-black font-semibold'>Colors</h5>
-                    <ul className='w-[247px] mt-5 mx-auto flex flex-wrap items-start justify-between gap-[15.5px]'>
-                        <li className='w-[35px] h-[35px] bg-[#00C12B] rounded-[50px] border-[2px] border-[#00C12B]'></li>
-                        <li className='w-[35px] h-[35px] bg-[red] rounded-[50px] border-[2px] border-[red]'></li>
-                        <li className='w-[35px] h-[35px] bg-[#F5DD06] rounded-[50px] border-[2px] border-[#F5DD06]'></li>
-                        <li className='w-[35px] h-[35px] bg-[#F57906] rounded-[50px] border-[2px] border-[#F57906]'></li>
-                        <li className='w-[35px] h-[35px] bg-[#06CAF5] rounded-[50px] border-[2px] border-[#06CAF5]'></li>
-                        <li className='w-[35px] h-[35px] bg-[#063AF5] rounded-[50px] border-[2px] border-[#063AF5]'></li>
-                        <li className='w-[35px] h-[35px] bg-[#7D06F5] rounded-[50px] border-[2px] border-[#7D06F5]'></li>
-                        <li className='w-[35px] h-[35px] bg-[#F506A4] rounded-[50px] border-[2px] border-[#F506A4]'></li>
-                        <li className='w-[35px] h-[35px] bg-[#FFFFFF] rounded-[50px] border-[2px] border-[#ddd]'></li>
-                        <li className='w-[35px] h-[35px] bg-[black] rounded-[50px] border-[2px] border-[black]'></li>
+                    <ul className='max-w-[247px] w-full mt-5 mx-auto flex flex-wrap items-start justify-between gap-[15px]'>
+                        <ColorsItem color={'#00C12B'} />
+                        <ColorsItem color={'red'} />
+                        <ColorsItem color={'#F5DD06'} />
+                        <ColorsItem color={'#F57906'} />
+                        <ColorsItem color={'#06CAF5'} />
+                        <ColorsItem color={'#063AF5'} />
+                        <ColorsItem color={'#7D06F5'} />
+                        <ColorsItem color={'#F506A4'} />
+                        <ColorsItem color={'#FFFFFF'} />
+                        <ColorsItem color={'black'} />
                     </ul>
                 </div>
                 <Liner key={'liner_4'} />
             </div>
-            <div className="max-w-[945px] w-full px-4 grid gap-4">
+            <div className='w-full px-2 md:hidden mt-6 mb-4 text-[20px] lg:hidden xl:hidden mx-auto flex items-center justify-start gap-12'>
+                <h4 className='font-bold'>Filters</h4>
+                <select className="py-1 font-semibold px-3 text-black" onChange={e => setCategoryId(e.target.value)}>
+                    {category?.payload?.map(category => (
+                        <option value={category?._id} key={category?._id} className="text-black">
+                            {category?.title}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <div className="max-w-[929px] w-full mx-auto px-4 grid gap-4 col-span-3">
                 <h1 className='text-[32px] font-bold'>Casual</h1>
                 <div className="w-full flex flex-wrap items-center justify-between gap-5">
                     {
@@ -73,41 +80,7 @@ const Products = () => {
                                 <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
                             </>
                         ) : data?.payload?.map(product => (
-                            <div className='group w-[280px] min-h-[360px] flex flex-col justify-start gap-4
-                        bg-white rounded-md' >
-                                <figure className='w-[255px] h-[298px] mx-auto relative rounded-lg bg-white'>
-                                    <img className='w-full h-full mx-auto p-3 object-contain rounded-lg' alt="example" src={product?.urls[0]} />
-
-                                    <div className='w-full h-full top-0 absolute hidden group-hover:flex group-hover:top-2
-                                items-center justify-center bg-[#0002] rounded-lg gap-3'>
-                                        <button className='w-[34px] h-[34px] flex items-center justify-center rounded-full bg-white'>
-                                            <LikeIcon />
-                                        </button>
-                                        {/* <button className='w-[34px] h-[34px] flex items-center justify-center px-3 rounded-full bg-white'>
-                                            <EyeOutlined className='text-[24px]' />
-                                        </button> */}
-                                        <button className='w-[34px] h-[34px] flex items-center justify-center rounded-full bg-white'>
-                                            <ShopIcon />
-                                        </button>
-                                    </div>
-                                </figure>
-                                <div className="w-full px-4 pb-2 flex flex-col gap-3">
-                                    <Link to={`/products/${product?._id}`} className='text-[20px] font-semibold'>{product?.title}</Link>
-                                    <p className='flex items-center justify-start gap-4'>{ratingTotal(product?.rating)}
-                                        <span className='text-sm text-gray-500'>{product?.rating}/5</span>
-                                    </p>
-                                    <ul className='flex items-center justify-start gap-3 text-black'>
-                                        <li className='text-[24px] font-medium'>${product?.price}</li>
-                                        <li className={`text-[24px] font-medium text-[#00000066] ${product?.oldPrice < product?.price ? 'hidden' : 'block'}`}>
-                                            ${product?.oldPrice}
-                                        </li>
-                                        <li className={`${product?.oldPrice < product?.price ? 'hidden' : 'flex w-[58px] mt-1 h-[28px]'} px-2 items-center justify-center font-semibold
-                                    bg-[#FF33331A] text-[#FF3333] rounded-3xl`}>
-                                            {(((product?.oldPrice - product?.price) * 100) / product?.oldPrice).brm()}%
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <ProductsItem key={product?._id} product={product} />
                         ))
                     }
                 </div>

@@ -8,7 +8,7 @@ const CreateCategory = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        newCategory({ title: title })
+        newCategory(title)
         console.log(title)
     }
     console.log(data)

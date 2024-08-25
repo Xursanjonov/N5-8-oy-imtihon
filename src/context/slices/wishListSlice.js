@@ -14,11 +14,15 @@ const wishlistSlice = createSlice({
                 state.value = [...state.value, action.payload];
             } else {
                 state.value = state.value.filter((i) => i._id !== action.payload._id);
-                localStorage.setItem("wish-list", JSON.stringify(state.value));
             }
+            localStorage.setItem("wish-list", JSON.stringify(state.value));
+        },
+        deleteAll: (state) => {
+            state.value = [];
+            localStorage.setItem("wish-list", JSON.stringify(state.value));
         }
     },
 });
 
-export const { addToHeart } = wishlistSlice.actions;
+export const { toggleHeart, deleteAll } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

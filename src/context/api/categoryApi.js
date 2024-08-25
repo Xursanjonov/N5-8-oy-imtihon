@@ -17,7 +17,7 @@ export const categoryApi = api.injectEndpoints({
             providesTags: ["Categories"]
         }),
         createCategory: build.mutation({
-            query: ({ title }) => ({
+            query: (title) => ({
                 url: "/categories",
                 method: "POST",
                 title

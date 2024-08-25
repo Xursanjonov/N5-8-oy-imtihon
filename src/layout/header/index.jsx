@@ -13,7 +13,7 @@ const Header = () => {
 
     return (
         <Fragment>
-            <div className="max-w-[1920px] w-full mx-auto relative h-[38px] flex flex-wrap items-center justify-center gap-1 bg-[#000] text-white">
+            <div className="max-w-[1920px] w-full hidden mx-auto relative h-[38px] lg:flex xl:flex flex-wrap items-center justify-center gap-1 bg-[#000] text-white">
                 <div className='flex items-center gap-2'>
                     <span className='font-light'>Sign up and get 20% off to your first order.</span>
                     <button className='border-b-[1px]'>Sign Up Now</button>

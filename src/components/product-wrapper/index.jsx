@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import ProductItem from './ProductItem'
+import ProductsItem from './ProductsItem'
 import { useNavigate } from 'react-router-dom'
 
 const ProductsWrapper = ({ products, title, link, btn }) => {
@@ -10,7 +10,7 @@ const ProductsWrapper = ({ products, title, link, btn }) => {
             <h1 className='text-[48px] text-center font-extrabold'>{title}</h1>
             <div className="max-w-[1240px] w-full mx-auto flex flex-wrap items-center justify-start gap-5 bg-white">
                 {
-                    products?.map(product => <ProductItem key={product?.id} product={product} />)
+                    products?.map(product => <ProductsItem key={product?.id} product={product} />)
                 }
             </div>
             <button onClick={() => navigate(link ?? '/products')}

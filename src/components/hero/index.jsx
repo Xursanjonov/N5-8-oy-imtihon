@@ -1,8 +1,10 @@
 import React, { memo } from 'react'
 import heroBg from '../../assets/images/hero-bg.png'
 import './hero.css'
+import { useNavigate } from 'react-router-dom'
 
 const Hero = () => {
+    const navigate = useNavigate()
 
     return (
         <div className={`max-w-[1920px] w-full min-h-[800px] mx-auto relative`}>
@@ -11,7 +13,7 @@ const Hero = () => {
                 <h1 className='max-w-[570px] w-full text-[64px] font-extrabold leading-[64px]'>FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
                 <p className='lg:max-w-[760px] xl:max-w-[790px] w-full px-4 text-[22px] max-w-[358px]'>Browse through our diverse range of meticulously crafted garments, designed <br />
                     to bring out your individuality and cater to your sense of style.</p>
-                <button className='w-[210px] h-[46px] text-lg rounded-3xl text-white bg-black'>Shop Now</button>
+                <button onClick={() => navigate('/products')} className='w-[210px] h-[46px] text-lg rounded-3xl text-white bg-black'>Shop Now</button>
                 <ul className='flex flex-wrap items-center justify-start gap-8'>
                     <li>
                         <h4 className='text-[40px] font-bold'>200+</h4>

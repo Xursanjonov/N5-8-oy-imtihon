@@ -1,25 +1,34 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import LikeCart from '../../components/like-cart'
 import { Button, Empty, Typography } from 'antd';
 import likeEmpty from '../../assets/images/like-empty.svg'
+import { useDispatch, useSelector } from 'react-redux';
+import ProductsItem from '../../components/product-wrapper/ProductsItem';
+import { CloseOutlined } from '@ant-design/icons';
+import { deleteAll } from '../../context/slices/wishListSlice';
 
 const WishList = () => {
-    const [likeData, setLikeData] = useState(JSON.parse(localStorage.getItem('like__data')) || null)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const likeData = useSelector(state => state.wishlist.value)
 
-    useEffect(() => window.scrollTo(0, 0), [])
-    useEffect(() => { localStorage.setItem('like__data', JSON.stringify(likeData)) }, [likeData])
+    // console.log(likeData)
+    useEffect(() => window.scrollTo(0, 0), [likeData])
 
-    return likeData ? (
-        <section className='max-w-[1240px] w-full mx-auto'>
-            <div className='w-full my-16 mx-auto flex flex-col gap-14'>
+    return likeData.length ? (
+        <section className='max-w-[1240px] w-full my-12 mx-auto'>
+            <div className='w-full flex items-center justify-center gap-6'>
                 <h1 className='text-[48px] text-center font-extrabold'>Wish List</h1>
-                <div className="max-w-[1240px] w-full mx-auto flex flex-wrap items-center justify-start gap-5 bg-white">
-                    {
-                        likeData?.map(el => <LikeCart key={el?.id} product={el} />)
-                    }
-                </div>
+                <button onClick={() => dispatch(deleteAll())} className='w-[34px] h-[34px] mt-2 p-1 flex items-center justify-center gap-2 font-bold rounded-md'>
+                    <CloseOutlined className='text-xl' />
+                </button>
+            </div>
+            <div className="max-w-[1240px] w-full mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 items-center justify-start gap-4 bg-white">
+                {
+                    likeData?.map(el => (
+                        <ProductsItem key={el._id} product={el} />
+                    ))
+                }
             </div>
         </section>
     ) : (

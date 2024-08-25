@@ -17,17 +17,17 @@ const Footer = () => {
 
     return (
         <div className='w-full'>
-            <div className='max-w-[1240px] w-full min-h-[180px] mx-auto px-[64px]
-             flex items-center justify-between transform translate-y-[50%] rounded-[20px] bg-black'>
-                <h4 className='max-w-[555px] w-full text-[40px] leading-[45px] font-extrabold text-white'>
+            <div className='max-w-[1240px] w-full min-h-[180px] h-full mx-auto px-[64px] grid sm:grid-cols-1 md::grid-cols-1 lg:grid-cols-2 xl:grid-cols-2
+            items-center justify-between translate-y-[50%] rounded-[20px] bg-black'>
+                <h4 className='max-w-[555px] w-full text-[32px] xl:text-[48px] leading-[25px] md:leading-[45px] font-extrabold text-white'>
                     STAY UPTO DATE ABOUT OUR LATEST OFFERS
                 </h4>
-                <div className="w-[350px] flex flex-wrap flex-col gap-3.5">
-                    <label htmlFor="emails" className='max-w-[400px] w-full h-[48px] px-5 rounded-3xl flex items-center gap-3 bg-white'>
+                <div className="max-w-[350px] w-full mx-auto flex flex-wrap justify-end flex-col gap-2 md:gap-3.5">
+                    <label htmlFor="emails" className='max-w-[400px] w-full h-[38px] md:h-[48px] lg:h-[48px] px-5 rounded-3xl flex items-center gap-3 bg-white'>
                         <span> <EmailIcon /> </span>
                         <input className='w-full h-[60%]' type="email" id='emails' placeholder="Enter your email address" />
                     </label>
-                    <button className='max-w-[400px] w-full h-[48px] px-5 rounded-3xl text-center bg-white'>
+                    <button className='max-w-[400px] w-full h-[38px] md:h-[48px] lg:h-[48px] px-5 rounded-3xl text-center bg-white'>
                         Subscribe to Newsletter
                     </button>
                 </div>

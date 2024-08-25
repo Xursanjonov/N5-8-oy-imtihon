@@ -17,8 +17,8 @@ const ManageCategory = () => {
                         <li key={category?.id} className='w-full px-1 py-1 text-xl font-semibold flex items-center justify-between border-b-2 border-gray-500'>
                             <span>{category?.title}</span>
                             <div className="flex items-center justify-end gap-3">
-                                <Button color='primary' className='p-0 px-2 py-2 rounded-[5px] text-sm'> <EditOutlined /> </Button>
-                                <Button color='primary' className='p-0 px-2 py-2 rounded-[5px] text-sm'> <DeleteOutlined /> </Button>
+                                <Button color='primary' className='p-0 px-1 py-2 rounded-[5px] text-sm'> <EditOutlined /> </Button>
+                                <Button color='primary' className='p-0 px-1 py-2 rounded-[5px] text-sm'> <DeleteOutlined /> </Button>
                             </div>
                         </li>
                     ))

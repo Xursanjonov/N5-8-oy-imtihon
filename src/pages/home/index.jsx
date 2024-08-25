@@ -16,7 +16,6 @@ const Home = () => {
     const { data, isFetching } = useGetProductsQuery({ limit: 4, skip: 1 })
     const { data: data2, isFetching: isFetching2 } = useGetProductsQuery({ limit: 4, skip: 2 })
 
-    console.log(data2)
     return (
         <section className='w-full mx-auto'>
             <Hero />
