@@ -4,7 +4,7 @@ import { useCreateCategoryMutation } from '../../../context/api/categoryApi'
 
 const CreateCategory = () => {
     const [title, setTitle] = React.useState('')
-    const [newCategory, { data, isFetching }] = useCreateCategoryMutation()
+    const [newCategory, { data }] = useCreateCategoryMutation()
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,10 +23,10 @@ const CreateCategory = () => {
                         placeholder='Title' className='w-full py-1 px-3 text-lg font-semibold border-2 rounded-md'
                     />
                 </label>
-                <label htmlFor="category-btn" className='w-[120px] grid gap-2'>
+                <div htmlFor="category-btn" className='w-[120px] grid gap-2'>
                     <span className='text-lg font-semibold'>Button</span>
                     <Button color='primary' type='submit' className='w-[120px] h-[38px] text-lg font-semibold bg-blue-500'>Create</Button>
-                </label>
+                </div>
             </form>
         </div>
     )

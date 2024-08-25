@@ -72,12 +72,6 @@ const Products = () => {
                                 <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
                                 <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
                                 <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
-                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
-                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
-                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
-                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
-                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
-                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
                             </>
                         ) : data?.payload?.map(product => (
                             <ProductsItem key={product?._id} product={product} />
