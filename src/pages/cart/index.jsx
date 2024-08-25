@@ -13,9 +13,9 @@ const Cart = () => {
         <Empty image={cartEmpty}
             className='w-full flex flex-col items-center justify-center'
             imageStyle={{
-                maxWidth: '400px',
+                maxWidth: '350px',
                 width: '100%',
-                height: '400px',
+                height: '350px',
                 margin: '0 auto',
                 display: 'flex',
                 alignItems: 'center',
@@ -24,8 +24,8 @@ const Cart = () => {
             description={<Typography.Text className='text-lg'> Your Cart is empty</Typography.Text>}
         >
             <div className="flex items-center justify-center gap-4">
-                <Button onClick={() => navigate('/')} className='font-semibold' type="">Go Home</Button>
-                <Button onClick={() => navigate('/products')} className='font-semibold' type="primary">Go to Product</Button>
+                <Button onClick={() => navigate('/')} className='font-semibold' type="">Home</Button>
+                <Button onClick={() => navigate('/products')} className='font-semibold' type="primary">Start Shopping</Button>
             </div>
         </Empty>
     )

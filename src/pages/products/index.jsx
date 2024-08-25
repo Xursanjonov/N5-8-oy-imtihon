@@ -1,52 +1,44 @@
 import React, { memo, useEffect } from 'react'
 import { useGetProductsQuery } from '../../context/api/productApi'
+import { Link } from 'react-router-dom'
+import { Skeleton, Slider } from 'antd'
+import { EyeOutlined } from '@ant-design/icons'
 import ShopIcon from '../../assets/icons/ShopIcon'
 import LikeIcon from '../../assets/icons/LikeIcon'
-import { Link } from 'react-router-dom'
 import { Liner, ratingTotal } from '../../static/CustemsFuction'
 import FiltersIcon from '../../assets/icons/FiltersIcon'
 import { useGetCategoriesQuery } from '../../context/api/categoryApi'
-import { Slider } from 'antd'
-import { EyeOutlined } from '@ant-design/icons'
 
 const Products = () => {
-    const [tabs, setTabs] = React.useState('')
-    const { data, isFetching } = useGetProductsQuery({ limit: '', filter: tabs })
-    const { data: categoryData, isFetching: categoryFetching } = useGetCategoriesQuery()
+    const [categoryId, setCategoryId] = React.useState('')
+    const { data, isFetching } = useGetProductsQuery({ limit: 100, categoryId })
+    const { data: category, isFetching: categoryFetching } = useGetCategoriesQuery()
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [tabs])
+    useEffect(() => { window.scrollTo(0, 0) }, [categoryId])
 
-    console.log(data?.payload)
     return (
         <section className='max-w-[1240px] w-full my-10 mx-auto flex items-start justify-start gap-[21px]'>
             <div className="max-w-[295px] min-h-[160px] w-full py-5 px-6 flex flex-wrap items-start justify-start border-2 rounded-[20px]">
                 <button className='w-full text-[20px] font-bold flex items-center justify-between gap-2'>
                     <span>Filters</span> <FiltersIcon />
                 </button>
-                <Liner />
+                <Liner key={'liner_1'} />
                 <ul className='w-full grid gap-5 text-[#00000099] font-medium'>
                     {
-                        categoryFetching ? (
-                            <>
-                                <li>Loading...</li>
-                                <li>Loading...</li>
-                                <li>Loading...</li>
-                                <li>Loading...</li>
-                                <li>Loading...</li>
-                            </>
-                        ) : categoryData?.payload?.map(category => (
-                            <li key={category?._id} onClick={() => setTabs(category?.title)} className='cursor-pointer'> {category?.title} </li>
-                        ))
+                        categoryFetching ? <Skeleton active className='w-[247px] p-8 border-[1px] rounded-lg' />
+                            : category?.payload?.map(category => (
+                                <li key={category?._id} onClick={() => setCategoryId((category?._id).toString())} className='cursor-pointer'>
+                                    {category?.title}
+                                </li>
+                            ))
                     }
                 </ul>
-                <Liner />
+                <Liner key={'liner_2'} />
                 <div className="w-full grid">
                     <h5 className='text-lg text-black font-semibold'>Price</h5>
                     <Slider className='w-full text-black' controlSize={20} range={{ draggableTrack: true, }} defaultValue={[0, 10000]} />
                 </div>
-                <Liner />
+                <Liner key={'liner_3'} />
                 <div className="w-full grid">
                     <h5 className='text-lg text-black font-semibold'>Colors</h5>
                     <ul className='w-[247px] mt-5 mx-auto flex flex-wrap items-start justify-between gap-[15.5px]'>
@@ -62,13 +54,25 @@ const Products = () => {
                         <li className='w-[35px] h-[35px] bg-[black] rounded-[50px] border-[2px] border-[black]'></li>
                     </ul>
                 </div>
-                <Liner />
+                <Liner key={'liner_4'} />
             </div>
             <div className="max-w-[945px] w-full px-4 grid gap-4">
                 <h1 className='text-[32px] font-bold'>Casual</h1>
                 <div className="w-full flex flex-wrap items-center justify-between gap-5">
                     {
-                        isFetching ? <h1>Loading</h1> : data?.payload?.map(product => (
+                        isFetching ? (
+                            <>
+                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
+                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
+                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
+                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
+                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
+                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
+                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
+                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
+                                <Skeleton active className='w-[280px] min-h-[150px] p-8 border-[1px] rounded-lg' />
+                            </>
+                        ) : data?.payload?.map(product => (
                             <div className='group w-[280px] min-h-[360px] flex flex-col justify-start gap-4
                         bg-white rounded-md' >
                                 <figure className='w-[255px] h-[298px] mx-auto relative rounded-lg bg-white'>
@@ -79,9 +83,9 @@ const Products = () => {
                                         <button className='w-[34px] h-[34px] flex items-center justify-center rounded-full bg-white'>
                                             <LikeIcon />
                                         </button>
-                                        <button className='w-[34px] h-[34px] flex items-center justify-center px-3 rounded-full bg-white'>
+                                        {/* <button className='w-[34px] h-[34px] flex items-center justify-center px-3 rounded-full bg-white'>
                                             <EyeOutlined className='text-[24px]' />
-                                        </button>
+                                        </button> */}
                                         <button className='w-[34px] h-[34px] flex items-center justify-center rounded-full bg-white'>
                                             <ShopIcon />
                                         </button>
@@ -94,10 +98,10 @@ const Products = () => {
                                     </p>
                                     <ul className='flex items-center justify-start gap-3 text-black'>
                                         <li className='text-[24px] font-medium'>${product?.price}</li>
-                                        <li className={`text-[24px] font-medium text-[#00000066] ${product?.oldPrice > 0 ? 'block' : 'hidden'}`}>
+                                        <li className={`text-[24px] font-medium text-[#00000066] ${product?.oldPrice < product?.price ? 'hidden' : 'block'}`}>
                                             ${product?.oldPrice}
                                         </li>
-                                        <li className={`${product?.oldPrice > 0 ? 'flex w-[58px] mt-1 h-[28px]' : 'hidden'} px-2 items-center justify-center font-semibold
+                                        <li className={`${product?.oldPrice < product?.price ? 'hidden' : 'flex w-[58px] mt-1 h-[28px]'} px-2 items-center justify-center font-semibold
                                     bg-[#FF33331A] text-[#FF3333] rounded-3xl`}>
                                             {(((product?.oldPrice - product?.price) * 100) / product?.oldPrice).brm()}%
                                         </li>

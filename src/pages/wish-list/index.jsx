@@ -25,9 +25,9 @@ const WishList = () => {
     ) : (
         <Empty image={likeEmpty}
             imageStyle={{
-                maxWidth: '400px',
+                maxWidth: '300px',
                 width: '100%',
-                height: '60vh',
+                height: '350px',
                 margin: '0 auto',
                 display: 'flex',
                 alignItems: 'center',
@@ -36,8 +36,8 @@ const WishList = () => {
             description={<Typography.Text className='text-lg'> Your wish list is empty</Typography.Text>}
         >
             <div className="flex items-center justify-center gap-4">
-                <Button onClick={() => navigate('/')} className='font-semibold' type="">Go Home</Button>
-                <Button onClick={() => navigate('/products')} className='font-semibold' type="primary">Go to Like Cart</Button>
+                <Button onClick={() => navigate('/')} className='font-semibold' type="">Home</Button>
+                <Button onClick={() => navigate('/products')} className='font-semibold' type="primary">Start Shopping</Button>
             </div>
         </Empty>
     )
