@@ -1,16 +1,29 @@
-import { Button, Empty, Typography } from 'antd'
 import React, { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import cartEmpty from '../../assets/images/cart-empty.png'
 import { useDispatch, useSelector } from 'react-redux'
+import { Button, Empty, Modal, Typography } from 'antd'
 import { CloseOutlined } from '@ant-design/icons'
-import { deleteAllCart } from '../../context/slices/cartSlice'
 import CartItem from '../../components/product-wrapper/CartItem'
+import { deleteAllCart } from '../../context/slices/cartSlice'
+import cartEmpty from '../../assets/images/cart-empty.png'
+import { Liner } from '../../static/CustemsFuction'
 
 const Cart = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [open, setOpen] = React.useState(false)
     const cartDatas = useSelector(state => state.cart.value)
+    const showModal = () => {
+        setOpen(true);
+    };
+    const handleOk = () => {
+        localStorage.removeItem("cart-products")
+        setOpen(false);
+        navigate("/products")
+    };
+    const handleCancel = () => {
+        setOpen(false);
+    };
 
     return cartDatas?.length ? (
         <section className='max-w-[1224px] w-full my-12 px-4 mx-auto grid grid-cols-1 gap-6'>
@@ -29,39 +42,46 @@ const Cart = () => {
                         ))
                     }
                 </div>
-                <div className="max-w-[505px] w-full p-4 h-[458px] flex flex-col items-start justify-between bg-white rounded border-2">
+                <div className="max-w-[505px] w-full p-4 h-[458px] flex flex-col items-start justify-between bg-white rounded-[20px] border-2">
                     <h2 className="text-xl font-bold">Order Summary</h2>
-                    <div className="mt-4">
-                        <div className="flex justify-between text-lg">
+                    <div className="w-full flex flex-col items-start gap-5 text-[#00000099]">
+                        <div className="w-full flex justify-between text-lg">
                             <span>Subtotal</span>
-                            <span>$565</span>
+                            <span className='font-semibold text-black'>$565</span>
                         </div>
-                        <div className="flex justify-between text-lg text-red-500">
+                        <div className="w-full flex justify-between text-lg">
                             <span>Discount (-20%)</span>
-                            <span>-$113</span>
+                            <span className='font-semibold text-[red]'>-$113</span>
                         </div>
-                        <div className="flex justify-between text-lg">
+                        <div className="w-full flex justify-between text-lg">
                             <span>Delivery Fee</span>
-                            <span>$15</span>
+                            <span className='font-semibold text-black'>$15</span>
                         </div>
-                        <div className="flex justify-between text-2xl font-bold mt-4">
+                        <Liner key={'orders'} />
+                        <div className="w-full flex justify-between text-2xl">
                             <span>Total</span>
-                            <span>$467</span>
+                            <span className='font-semibold text-black'>${467}</span>
                         </div>
                     </div>
                     <div className="w-full flex items-center justify-between gap-3">
                         <input
                             type="text"
                             placeholder="Add promo code"
-                            className="w-full p-2 border rounded-[62px] mb-2"
+                            className="w-full px-4 py-2 border rounded-[62px] mb-2"
                         />
                         <button className="w-[119px] bg-black text-white p-2 rounded-[62px]">Apply</button>
                     </div>
-                    <button className="w-full bg-black text-white p-4 mt-4 rounded-[62px] flex justify-center items-center">
+                    <button onClick={showModal} className="w-full bg-black text-white px-6 py-5 rounded-[62px] flex justify-center items-center">
                         Go to Checkout →
                     </button>
                 </div>
             </div>
+            {
+                open ? <Modal title="Basic Modal" open={open} onOk={handleOk} onCancel={handleCancel}>
+                    <p>Mahsulotlar ro`yxati omborga jo`natildi </p>
+                    <p> Mahsulotlar tayyor bo`lganida sizga xabar jo`natiladi</p>
+                </Modal> : <></>
+            }
         </section>
     ) : (
         <Empty image={cartEmpty}

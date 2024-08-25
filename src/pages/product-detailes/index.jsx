@@ -1,10 +1,11 @@
 import React, { memo, useEffect } from 'react'
 import ProductsWrapper from '../../components/product-wrapper'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import TabsWrapper from '../../components/tabs'
 import image1 from '../../assets/images/one-life.png'
 import { useGetProductByIdQuery, useGetProductsQuery } from '../../context/api/productApi'
 import { Liner, ratingTotal } from '../../static/CustemsFuction'
+import { Button } from 'antd'
 
 const shooceSize = ["Small", "Medium", "Large", "X-Large"]
 
@@ -17,6 +18,7 @@ const ProductDetailes = () => {
     const [selectedSize, setSelectedSize] = React.useState("Large");
     const [onChangeImg, setOnChangeImg] = React.useState(0);
     const product = productData?.payload
+    const navigate = useNavigate()
 
     const handleQuantityChange = (amount) => {
         setQuantity((prevQuantity) =>
@@ -47,6 +49,7 @@ const ProductDetailes = () => {
                 </div>
                 <ul className='w-full mx-auto flex flex-col gap-3'>
                     <div className="w-full">
+                        <Button onClick={() => navigate(-1)} className='font-semibold'>Back</Button>
                         <h2 className="text-[40px] font-bold mb-2">{product?.title}</h2>
                         <div className="flex items-center mb-4">
                             <p>{ratingTotal(product?.rating)}</p>

@@ -1,8 +1,11 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import React, { memo } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { addToCart, decrementCart, removeFromCart } from '../../context/slices/cartSlice'
 
 const CartItem = ({ product }) => {
+    const dispatch = useDispatch()
 
     return (
         <div className="w-full flex items-center py-4 border-b gap-4">
@@ -20,15 +23,16 @@ const CartItem = ({ product }) => {
                 </div>
 
                 <div className="w-[225px] h-[124px] flex flex-col items-end justify-between">
-                    <button className="text-red-500"> <DeleteOutlined className='text-lg' /> </button>
+                    <button onClick={() => dispatch(removeFromCart(product?._id))} className="text-red-500"> <DeleteOutlined className='text-lg' /> </button>
                     <div className="min-w-[124px] h-[36px] flex items-center justify-center rounded-[62px] text-[20px] bg-[#F0F0F0]">
-                        <button className="p-2 text-gray-600">-</button>
-                        <span className="mx-2">1</span>
-                        <button className="p-2 text-gray-600">+</button>
+                        <button onClick={() => product?.quantity <= 1 ? dispatch(removeFromCart(product?._id)) : dispatch(decrementCart(product))}
+                            className="p-2 text-gray-600">-</button>
+                        <span className="mx-2">{product?.quantity}</span>
+                        <button onClick={() => dispatch(addToCart(product))} disabled={product?.quantity >= product?.stock} className="p-2 text-gray-600">+</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
