@@ -13,17 +13,9 @@ const Cart = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = React.useState(false)
     const cartDatas = useSelector(state => state.cart.value)
-    const showModal = () => {
-        setOpen(true);
-    };
-    const handleOk = () => {
-        localStorage.removeItem("cart-products")
-        setOpen(false);
-        navigate("/products")
-    };
-    const handleCancel = () => {
-        setOpen(false);
-    };
+    const showModal = () => { setOpen(true); };
+    const handleOk = () => { localStorage.removeItem("cart-products"); setOpen(false); navigate("/products") };
+    const handleCancel = () => { setOpen(false); };
 
     return cartDatas?.length ? (
         <section className='max-w-[1224px] w-full my-12 px-4 mx-auto grid grid-cols-1 gap-6'>
